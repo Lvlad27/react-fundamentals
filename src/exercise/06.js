@@ -92,30 +92,33 @@ Extra credit 2 ==>
   );
 }
 */
-  const [error, setError] = React.useState(null);
 
-  const handleChange = (event) => {
-    const inputValue = event.target.value;
-    const isValid = inputValue === inputValue.toLowerCase();
-    setError(isValid ? null : 'Username must be lowercase');
-  };
+  /*
+Extra credit 3 ==>
+*/
+  const [inputValue, setInputValue] = React.useState(null);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    const inputValue = event.target.elements.usernameInput.value;
     onSubmitUsername(inputValue);
+  };
+
+  const handleChange = (event) => {
+    setInputValue(event.target.value.toLowerCase());
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
         <label htmlFor="usernameInput">Username:</label>
-        <input id="usernameInput" type="text" onChange={handleChange} />
+        <input
+          id="usernameInput"
+          value={inputValue}
+          onChange={handleChange}
+          type="text"
+        />
       </div>
-      {error && <p style={{color: 'red'}}>{error}</p>}
-      <button disabled={Boolean(error)} type="submit">
-        Submit
-      </button>
+      <button type="submit">Submit</button>
     </form>
   );
 }
